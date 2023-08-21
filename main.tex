@@ -160,22 +160,38 @@
             and effective loss tangent computed by the port mode solver of CST.}
         \label{fig:tandsim}
     \end{figure}
-    In order to validate the modified de-embedding algorithm ...
+    In order to validate the modified de-embedding algorithm, a run wit simulated data, from the same CST models
+    of~\ref{doc:microstrip-characterization} was performed.
+    To observe the effect of the weighted average step, one run for the de-embedding algorithm is set to use the widest
+    possible gate (as in~\ref{doc:microstrip-characterization}).
+    The S-parameter results in~\fig{fig:sparasim} show that the averaging slightly improves on the ripple and the $s$
+    response (especially at the edges) wile not changing substantially the response.
+    The permittivity,~\fig{fig:epsilonsim}, and loss tangent~\fig{fig:tandsim}, results are compared with the
+    equivalent values computed form the complex propagation constant of the waveguide port mode solver of CST, and
+    from a full-wave simulation of a section of microstrip line terminated on to two adaptive waveguide ports.\\
+    The reason behind the large difference between the port mode solver result and and the full wave solution in~\fig{fig:epsilonsim}
+    is unclear.
+    The slight difference between the de-embedding results and the full wave result (in~\fig{fig:epsilonsim}), instead,
+    might be caused by a phase error due to finite meshing of the model or other numerical inaccuracies.
+    The full-wave reference should be in any case the most accurate representation of the de-embedded virtual line and the
+    total error appears reasonably small.\\
+    The results in~\fig{fig:tandsim} seem all to be in good agreement (at least in the central portion of the spectrum),
+    with ripple and \emph{edge diffraction} effects that seem to be most severe in the \laser{SL} case.
+
     \subsection{Measurements}
     \label{subsec:measurements}
     \begin{figure}[!tb]
         \includegraphics[width=\textwidth]{sparameas}
         \caption{De-embedding results from the measurements of the test fixtures.
         Solid lines: transmissivity (s), dotted lines: reflectivity (t);
-        for all the reference fixture -- under test fixture combinations e.g. LS = long line as reference and short line de-embedding target.
+        for all the reference-fixture -- under-test-fixture combinations e.g. LS = long line as reference and short line de-embedding target.
         The transmissivity sign is chosen to always correspond to a negative-length section
         of lossy transmission line (for ease of comparison).}
         \label{fig:sparameas}
     \end{figure}
-
     \begin{figure}[!tb]
         \includegraphics[width=\textwidth]{epsimeas}
-        \caption{Measured data retrieved effective permittivity for all the reference fixture -- under test fixture combinations.}
+        \caption{Measured data retrieved effective permittivity for all the reference-fixture -- under-test-fixture combinations.}
         \label{fig:epsilonmeas}
     \end{figure}
     \begin{figure}[!tb]
@@ -183,6 +199,7 @@
         \caption{Measured data retrieved effective loss tangent for all the reference-fixture -- under-test-fixture combinations.}
         \label{fig:tandmeas}
     \end{figure}
+    The measurements are made connecting the apc7 apc3.5, averaging, symmetry. to avoid the need for a 3.5mm calibration step...
 
 
     \section{Non-identical fixtures de-embedding error}
