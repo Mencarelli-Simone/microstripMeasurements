@@ -14,7 +14,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage{hyperref}
 \usepackage[shortlabels]{enumitem}
-\usepackage{drftcite}
+
 % MACROS
 % referencing a section
 \newcommand{\sref}[1]{Section~\ref{#1}}
@@ -68,7 +68,7 @@
     in an effort to explain the discrepancies found in the results of~\sref{sec:de-embedding}.\\
     The procedure for fitting the measured datum to a CST microstrip model is reported in~\sref{sec:numerical-model-matching}
     along with the resulting permittivity and loss tangent of the \emph{Material Under Test} (MUT).\\
-    The conclusions are drawn~\sref{sec:conclusion}.
+    The conclusions are drawn in~\sref{sec:conclusion}.
 
 
     \section{Fixtures assembly and geometrical variability}
@@ -78,9 +78,67 @@
     \section{De-embedding results}
     \label{sec:de-embedding}
 
+    %% De embedding procedure modification
+
+    %% results outline
+
+    The de-embedding results (virtual transmission line properties) are here presented in terms of:
+    \begin{itemize}
+        \item Transmissivity, i.e., the S21 of the de embedded length of transmission line, denoted with \emph{t}.
+        \item Reflectivity, i.e., the S21 of the de embedded length of transmission line, denoted with \emph{s}.
+        \item Effective permittivity $\varepsilon_{eff}$.
+        \item Effective loss tangent $\tan\delta_{eff}$.
+    \end{itemize}
+    The effective permittivity and loss tangent are for visualization purposes only and are formulated from the low-loss
+    approximation~\cite{Pozar} for transmission lines (assuming all loss lumped into the dielectric material and
+    the phase velocity independent of loss).\\
+    The effective permittivity is given by
+    \begin{equation}
+        \varepsilon_{eff} = \left(\dfrac{ c [\text{unwrap}(\angle{t}) + n2\pi]} {2\pi f L}\right)^2,
+        \label{eq:epsilon}
+    \end{equation}
+    where $c$ is the speed of light, $L$ is the line length, $f$ is the frequency and $n$ an integer to correctly reconstruct
+    the true--time phase delay (usually n=0 if the first sample of $f$ is small enough).\\
+    The loss tangent is defined as
+    \begin{equation}
+        \tan \delta_{eff} = -\dfrac{\ln(|t|) c}{L \pi f \sqrt{\varepsilon_{eff}}}.
+        \label{eq:tand}
+    \end{equation}
+    A better figure that can be used to make the measurement results independent from the physical length $L$, is the
+    complex propagation constant
+    \begin{equation}
+        \gamma = \alpha + j \beta = \ln(t) / L,
+        \label{eq:gamma}
+    \end{equation}
+    used in \sref{sec:numerical-model-matching} to match the CST model to the measured data.\\
+
+    Note how all the above depend (measurand) exclusively on the transmissivity $t$.
+    While, the reflectivity $s$, using the de-embedding procedure of~\ref{doc:microstrip-characterization}, can be
+    considered as a function of the de-embedding error, as it should be 0 in the ideal case. \\
+    For the measured data, it was noted that the response $s$ varies changing the gate width from the, originally considered, distance between
+    two reflections to a smaller value.
+    Since this changes improves or degrades the value of $s$ in different parts of the spectrum, it was chosen to modify
+    the de-embedding algorithm of~\ref{doc:microstrip-characterization}, to sweep over several values for the gate width
+    and then perform a weighted average of the different resulting $t$--curves using the $s$--curves as a logarithmic
+    weighting factors for every frequency bin .\\
+    This sensibility to changes in the gates widths is probably due to some irregularities in the measured transmission lines,
+    far from being perfectly homogeneous due to the manufacturing process.
+    This change in gate length, in theory, should not impact negatively on the overall result as it is equivalent to
+    performing a low-pass filtering of the time impulse response of the transitions to be removed.
+    In fact, the average $s$ value over frequency reduces when this weighted average technique is introduced. \\
+    Moreover, instead of always using the longer transmission line to generate the transition scattering matrices to de--embedd the
+    shorter transmission line, all combinations of measurement/simulation pairs are computed.
+    Although using the longer line as reference provides the best theoretical frequency resolution, is interesting to see
+    what happens in the reversed case where the transition scattering parameters have a naturally shorter (low--pass)
+    time response, and hence a smoother shape in frequency.\\
+    The resulting de-embedded virtual lines can therefore either have a causal or an anti--causal response.
+    For ease of comparison all the signs in the data plots are normalized to always represent the equivalent anti--causal
+    transmission lines, e.g., \laser{LS} is the \emph{anti-causal} (negative length) line obtained de--embedding the line S from the transitions
+    T-matrices obtained from the response of L, and vice versa \laser{SL} is the \emph{causal} line of identical positive length.
+
     \subsection{Simulated data reference}
     \label{subsec:simulation}
-    \begin{figure}[!h]
+    \begin{figure}[!t]
         \includegraphics[width=\textwidth]{sparasim}
         \caption{De-embedding results from full wave simulations of a 40~mm (S) and a 219~mm (L) test fixtures.
         Solid lines: transmissivity (s), dotted lines: reflectivity (t); for all the combinations plus LS deembedding
@@ -88,24 +146,24 @@
         of lossy transmission line (for ease of comparison).}
         \label{fig:sparasim}
     \end{figure}
-    \begin{figure}[!h]
+    \begin{figure}[!tb]
         \includegraphics[width=\textwidth]{epsisim}
         \caption{Simulated data retrieved effective permittivity compared with $\varepsilon_{eff}$ calculated from
         the $S_{21}$ of a full--wave simulation of a microstrip section (terminated on adaptive waveguide ports),
             and effective dielectric constant computed by the port mode solver of CST.}
         \label{fig:epsilonsim}
     \end{figure}
-    \begin{figure}[!h]
+    \begin{figure}[!tb]
         \includegraphics[width=\textwidth]{tandsim}
         \caption{Simulated data retrieved effective loss tangent compared with $\tan\delta_{eff}$ calculated from
         the $S_{21}$ of a full--wave simulation of a microstrip section (terminated on adaptive waveguide ports),
             and effective loss tangent computed by the port mode solver of CST.}
         \label{fig:tandsim}
     \end{figure}
-
+    In order to validate the modified de-embedding algorithm ...
     \subsection{Measurements}
     \label{subsec:measurements}
-    \begin{figure}[!h]
+    \begin{figure}[!tb]
         \includegraphics[width=\textwidth]{sparameas}
         \caption{De-embedding results from the measurements of the test fixtures.
         Solid lines: transmissivity (s), dotted lines: reflectivity (t);
@@ -115,14 +173,14 @@
         \label{fig:sparameas}
     \end{figure}
 
-    \begin{figure}[!h]
+    \begin{figure}[!tb]
         \includegraphics[width=\textwidth]{epsimeas}
         \caption{Measured data retrieved effective permittivity for all the reference fixture -- under test fixture combinations.}
         \label{fig:epsilonmeas}
     \end{figure}
-    \begin{figure}[!h]
+    \begin{figure}[!tb]
         \includegraphics[width=\textwidth]{tandmeas}
-        \caption{Measured data retrieved effective loss tangent for all the reference fixture -- under test fixture combinations.}
+        \caption{Measured data retrieved effective loss tangent for all the reference-fixture -- under-test-fixture combinations.}
         \label{fig:tandmeas}
     \end{figure}
 
@@ -132,6 +190,14 @@
 
     \subsection{Measurement results}
     \label{subsec:measure-error}
+    \begin{figure}[!tb]
+        \includegraphics[width=\textwidth]{error}
+        \caption{Two--fixtures schematic for the de-embedding procedure. The transitions are identical and the lines are
+        of different lengths to produce a $\Delta_L$--long virtual line response. The error arises from the difference
+        in phase velocity between the two lines (related to the effective permittivities $\varepsilon$).}
+        \label{fig:error}
+    \end{figure}
+    In the ideal case,
 
 
     \section{Numerical model matching}
@@ -140,7 +206,8 @@
 
     \section{Conclusions}
     \label{sec:conclusion}
-
+    The manufacturing process needs to be improved for repeatability.
+    The material is lossy, might still be usable for a reflectarray, definitely not a good choice for traveling--wave antennas.
 
     \clearpage
     \bibliographystyle{IEEEtran}
