@@ -61,7 +61,7 @@
     Two thru-hole connectors are bolted to the structure with the central pin trimmed to length and soldered to the copper line.
     From here on, the fixtures are referred to by their line length; respectively: long~=~219~mm (L), medimum~=~146~mm (M), and
     short~=~40mm (S).\\
-    The complex propagation coefficient $\gamma$ extraction procedure is defined in \ref{doc:microstrip-characterization} and
+    The complex propagation coefficient $\gamma$ extraction procedure is defined in~\ref{doc:microstrip-characterization} and
     applied here with minor modifications.
     An overview of the methodology and the results of this de-embedding procedure are reported in~\sref{sec:de-embedding}.\\
     The error sensitivity to small differences in the average permittivity of the fixtures is derived in~\sref{sec:error}
@@ -199,8 +199,45 @@
         \caption{Measured data retrieved effective loss tangent for all the reference-fixture -- under-test-fixture combinations.}
         \label{fig:tandmeas}
     \end{figure}
-    The measurements are made connecting the apc7 apc3.5, averaging, symmetry. to avoid the need for a 3.5mm calibration step...
 
+    The measurements are made connecting the test fixtures to the PNA with two APC7 to APC3.5 adapters.
+    The instrument is calibrated at the APC7 interface, there is no need to calibrate the 3.5 connectors as they can be
+    considered as part of the transition to be removed during the de-embedding by performing two measurements for every
+    fixture as described here.\\
+    For every fixture, two measurements are taken.
+    The first with the port 1 of the PNA connected to the port 1 of the fixture (e.g., marked in~\fig{fig:photo}) and
+    port 2 of the PNA to the port 2 of the fixture.
+    In the second measurement, the fixture is rotated to connect the port 1 of the PNA to the port 2 of the fixture and
+    vice-versa.
+    Averaging all the S-parameters of the two measurements imposes a virtual symmetry condition that effectively removes
+    all differences in the right and left connector adapters for all fixtures alike.
+    An additional averaging is performed before the de--embedding to remove the asymmetries inside each individual test
+    fixture otherwise presenting different S11 and S22.
+    The transmissivity and reflectivity of every fixture for the purpose of de-embedding are then defined as
+    \begin{equation}
+        S11 = \dfrac{1}{4}(S11_a + S11_b + S22_a + S22_b),
+        \label{eq:saverage}
+    \end{equation}
+    and
+       \begin{equation}
+        S21 = \dfrac{1}{4}(S21_a + S21_b + S12_a + S12_b),
+        \label{eq:taverage}
+    \end{equation}
+    where the subscripts $a$ and $b$ denote the two PNA measurements made for every fixture.\\
+    The de-embedded transmissivity and reflectivity are displayed in~\fig{fig:sparameas}.
+    The residual reflection $s$ is higher than for the simulated case, but still acceptable especially in X-band (8--12~GHz).
+    Inverting the reference and de-embedded fixture seems to only have a minor effect on the responses.\\
+    The effective permittivity in~\fig{fig:epsilonmeas} (derived from the phase component of $t$) is the one showing
+    the largest deviation between pairs of test fixtures.
+    This is probably due to a difference in the permittivity of the two fixtures used in the de--embedding, the error
+    is also amplified in the case of a shorter difference length, as motivated in the next section.
+    Using the results of~\sref{sec:error} the \laser{LS--SL} and \laser{MS--SM} results are the ones which should better
+    approximate the effective permittivities of the longest of the two lines used in the de--embedding procedure, i.e.
+    \laser{L} and \laser{M} respectively.\\
+    The loss tangent in~\fig{fig:tandmeas} also shows some differences, with the measurements \laser{LM--ML} more distant
+    than the other two pairs.
+    Recall, in fact, that the tangent delta is computed from the square root of the dielectric constant~\eqref{eq:tand}
+    and therefore the error will be propagated from one to another.
 
     \section{Non-identical fixtures de-embedding error}
     \label{sec:error}
@@ -214,11 +251,17 @@
         in phase velocity between the two lines (related to the effective permittivities $\varepsilon$).}
         \label{fig:error}
     \end{figure}
-    In the ideal case,
+    In the ideal case, the two test fixtures are supposed to have identical propagation constants.
+    In practice, as depicted in~\fig{fig:error}, the two lines might have slightly different properties, yielding
+    to an error in the estimation of the electrical length of the virtual line $\Delta_L$ in the drawing.\\
+    Assuming that the only difference is in the phase velocity of the two lines, the de-embeddi
 
 
     \section{Numerical model matching}
     \label{sec:numerical-model-matching}
+
+    \subsection{Sensitivity considerations}
+    \label{subsec:sensitivity}
 
 
     \section{Conclusions}
