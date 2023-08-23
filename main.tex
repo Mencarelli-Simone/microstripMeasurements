@@ -14,6 +14,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage{hyperref}
 \usepackage[shortlabels]{enumitem}
+\usepackage{multirow}
 
 % MACROS
 % referencing a section
@@ -73,7 +74,38 @@
 
     \section{Fixtures assembly and geometrical variability}
     \label{sec:assembly}
-
+       \begin{figure}[!tb]
+           \centering
+        \includegraphics[width=0.7\textwidth]{measgrid}
+        \caption{Measurement grids, two lines of points on the right and left side of the fixture at 1.5~cm from the edge.}
+        \label{fig:grid}
+    \end{figure}
+    \begin{table}[!b]
+        \tiny
+        \begin{tabular}{llllllllll}
+            \hline
+            \multicolumn{1}{|c|}{\multirow{2}{*}{Fixture}} & \multicolumn{1}{c|}{\multirow{2}{*}{Samples}} & \multicolumn{2}{c|}{Left MUT}                               & \multicolumn{2}{c|}{Right MUT}                              & \multicolumn{2}{c|}{Total left}                             & \multicolumn{2}{c|}{Total right}                            \\ \cline{3-10}
+            \multicolumn{1}{|c|}{}  & \multicolumn{1}{c|}{}   & \multicolumn{1}{c|}{E}      & \multicolumn{1}{c|}{$\sigma$} & \multicolumn{1}{c|}{E}      & \multicolumn{1}{c|}{$\sigma$} & \multicolumn{1}{c|}{E}      & \multicolumn{1}{c|}{$\sigma$} & \multicolumn{1}{c|}{E}      & \multicolumn{1}{c|}{$\sigma$} \\ \hline
+            \multicolumn{1}{|l|}{L} & \multicolumn{1}{l|}{21} & \multicolumn{1}{l|}{0.5140} & \multicolumn{1}{l|}{0.0233}   & \multicolumn{1}{l|}{0.5195} & \multicolumn{1}{l|}{0.0212}   & \multicolumn{1}{l|}{1.7802} & \multicolumn{1}{l|}{0.0239}   & \multicolumn{1}{l|}{1.7667} & \multicolumn{1}{l|}{0.0105}   \\ \hline
+            \multicolumn{1}{|l|}{M} & \multicolumn{1}{l|}{14} & \multicolumn{1}{l|}{0.5118} & \multicolumn{1}{l|}{0.0198}   & \multicolumn{1}{l|}{0.5309} & \multicolumn{1}{l|}{0.0282}   & \multicolumn{1}{l|}{1.8492} & \multicolumn{1}{l|}{0.0406}   & \multicolumn{1}{l|}{1.7935} & \multicolumn{1}{l|}{0.0153}   \\ \hline
+            \multicolumn{1}{|l|}{S} & \multicolumn{1}{l|}{5}  & \multicolumn{1}{l|}{0.5088} & \multicolumn{1}{l|}{0.0242}   & \multicolumn{1}{l|}{0.5163} & \multicolumn{1}{l|}{0.0143}   & \multicolumn{1}{l|}{1.789}  & \multicolumn{1}{l|}{0.0201}   & \multicolumn{1}{l|}{1.748}  & \multicolumn{1}{l|}{0.0434}   \\ \hline
+            &                         &                             &                               &                             &                               &                             &                               &                             &                               \\ \hline
+            \multicolumn{1}{|c|}{Fixture} & \multicolumn{1}{c|}{Samples} & \multicolumn{2}{l|}{Dielectric (tot) left}                  & \multicolumn{2}{l|}{Dielectric (tot) right}                 & \multicolumn{2}{c|}{Glue left}                              & \multicolumn{2}{c|}{Glue right}                             \\ \hline
+            \multicolumn{1}{|c|}{}  & \multicolumn{1}{c|}{}   & \multicolumn{1}{c|}{E}      & \multicolumn{1}{c|}{$\sigma$} & \multicolumn{1}{c|}{E}      & \multicolumn{1}{c|}{$\sigma$} & \multicolumn{1}{c|}{E}      & \multicolumn{1}{c|}{$\sigma$} & \multicolumn{1}{c|}{E}      & \multicolumn{1}{c|}{$\sigma$} \\ \hline
+            \multicolumn{1}{|l|}{L} & \multicolumn{1}{l|}{21} & \multicolumn{1}{l|}{0.6095} & \multicolumn{1}{l|}{0.0252}   & \multicolumn{1}{l|}{0.5962} & \multicolumn{1}{l|}{0.0109}   & \multicolumn{1}{l|}{0.0955} & \multicolumn{1}{l|}{0.0303}   & \multicolumn{1}{l|}{0.0767} & \multicolumn{1}{l|}{0.0221}   \\ \hline
+            \multicolumn{1}{|l|}{M} & \multicolumn{1}{l|}{14} & \multicolumn{1}{l|}{0.6793} & \multicolumn{1}{l|}{0.0406}   & \multicolumn{1}{l|}{0.6236} & \multicolumn{1}{l|}{0.0153}   & \multicolumn{1}{l|}{0.1675} & \multicolumn{1}{l|}{0.0396}   & \multicolumn{1}{l|}{0.0926} & \multicolumn{1}{l|}{0.0330}   \\ \hline
+            \multicolumn{1}{|l|}{S} & \multicolumn{1}{l|}{5}  & \multicolumn{1}{l|}{0.62}   & \multicolumn{1}{l|}{0.02}     & \multicolumn{1}{l|}{0.566}  & \multicolumn{1}{l|}{0.058}    & \multicolumn{1}{l|}{0.1}    & \multicolumn{1}{l|}{0.0307}   & \multicolumn{1}{l|}{0.047}  & \multicolumn{1}{l|}{0.0699}   \\ \hline
+        \end{tabular}
+        \caption{Assemblies ticknesses average and standard deviation, all values are in [mm].}
+        \label{tab:thicknesses}
+    \end{table}
+    The test fixtures where assembled by gluing the MUT onto the support aluminium slab (of 1.17mm in thickness) using
+    some superglue.
+    To evaluate the thickness of the dielectric material to be tested and the layer of glue, several measurements
+    were taken using a micrometer (0.01~mm resolution) on a regular grid of points distributed on two lines on the right and left side
+    of the fixture as in~\fig{fig:grid}.\\
+    The results of this measurement, an the inferred total dielectric thickness and glue thickness are tabulated
+    in~\tabl{tab:thicknesses} in terms of average value \emph{E} and standard deviation $\sigma$.
 
     \section{De-embedding results}
     \label{sec:de-embedding}
@@ -296,7 +328,7 @@
 
     \subsection{Measurement results}
     \label{subsec:measure-error}
-    \begin{table}[!ht]
+    \begin{table}[!b]
         \centering
         \begin{tabular}{|l|l|l|l|l}
             \cline{1-4}
@@ -308,40 +340,56 @@
         \caption{Measurement sensitivity to permittivity variations.}
         \label{tab:errorsensitivity}
     \end{table}
-    Tabulating~\eqref{eq:smallerr} for the 3 test fixture combinations we obtain~\ref{tab:errorsensitivity}.
+
+    Tabulating~\eqref{eq:smallerr} for the 3 test fixture combinations we obtain~\tabl{tab:errorsensitivity}.
     These values explain the difference in the results in~\fig{fig:epsilonmeas} (and consequently~\fig{fig:tandmeas}).
     Also we can say that the measurements \laser{LS--SL} are the ones that best approximate the characteristics of the
     longest line \laser{L} (due to the smaller error sensitivity), while the measurements \laser{LM--ML} are the worst
     in this case.\\
     By extension, assuming that \laser{LS--SL} and \laser{MS--SM} are good approximations for the properties of
-    \laser{L} and \laser{M} respectively, we still find a difference of $\approx$~0.265 in the effective dielectric
+    \laser{L} and \laser{M} respectively, we still find a difference of $\approx$~0.2 in the effective dielectric
     permittivity indicating a substantial difference between test fixtures.\\
     The dielectric thickness differences measured during the assembly process might be part of the reason for this error.
     However, varying the thickness of the material in a CST model, doesn't produce a change in $\varepsilon_{eff}$
     large enough to justify the error.
-    Therefore the reason must lie in some non-homogeneity of the material due to manufacturing errors.
+    Therefore, the reason must lie in some non-homogeneity of the material due to manufacturing errors.
     In this sense, the measurement \laser{LS--SL} should represent a better \emph{average} of non-idealities effects;
     and will be used to match a numerical model to the measurement.
 
 
     \section{Numerical model matching}
     \label{sec:numerical-model-matching}
-    \begin{figure}[!b]
+    \begin{figure}[!t]
         \includegraphics[width=\textwidth]{fitter}
-        \caption{CST model for the microstrip, the layers from top to bottom are: copper 0.3~mm, acrylic 0.3~mm
+        \caption{CST model for the microstrip, the layers from top to bottom are: copper 0.03~mm, acrylic 0.03~mm
             (adhesive), MUT 0.55~mm, aluminium 1.2~mm.}
         \label{fig:fitter}
     \end{figure}
     The $LS$ measure was fitted to the model in~\fig{fig:fitter} using the difference of $\gamma$~\eqref{eq:gamma}
-    as a frequency-dependent error function.
+    ($|\gamma_{sim} - \gamma_{meas}|$) as a frequency-dependent error function.
     This error curve is integrated over a specified portion of the bandwidth to produce an error value that can be used
-    in a optimizer.\\
-    The optimization is performed with a python script that controls the execution of CST and updates the values of the
+    with an optimizer.\\
+    The optimization is performed using a python script that controls the execution of CST and updates the values of the
     dielectric constant and loss tangent of the MUT between iterations.\\
     The \laser{minimize} function of the library \laser{scipy} is used for the optimization.
-    Different methods can be utilized, the quasi-Newton \emph{BCGF} and the \emph{Nelder-Mead} methods where both found
+    Different methods can be utilized, the quasi-Newton \emph{BCGF} and the \emph{Nelder-Mead} methods were both found
     effective (the latter is best if the initial solution is far from convergence).
-
+    The optimization was performed for X-band (8--12~GHz) and resulted in a material with dielectric permittivity
+    $\epsilon = 3.673 $ and a loss tangent $\tan \delta = 0.02754$ @ 10~GHz.\\
+    The residual error and the effective permittivity (extended to a 2--17~GHz bandwidth) are plotted in~\fig{fig:residualerr}
+    and~\fig{fig:epsiopti} respectively.
+    \begin{figure}[!t]
+        \includegraphics[width=\textwidth]{residual_error}
+        \caption{Residual error $|\gamma_{sim} - \gamma_{meas}|$ after optimization, resampled and extended to
+        a 2--17~GHz bandwidth.}
+        \label{fig:residualerr}
+    \end{figure}
+    \begin{figure}[!t]
+        \includegraphics[width=\textwidth]{epsilon}
+        \caption{Optimized model (orange) and measurement (blue) $\varepsilon_{eff}$ comparison, resampled and extended to
+        a 2--17~GHz bandwidth.}
+        \label{fig:epsiopti}
+    \end{figure}
 
     %    \subsection{Sensitivity considerations}
     %    \label{subsec:sensitivity}
@@ -351,7 +399,8 @@
     \label{sec:conclusion}
     The manufacturing process needs to be improved for repeatability.
     The material is lossy, might still be usable for a reflectarray, definitely not a good choice for traveling--wave antennas.
-
+    The dielectric constant and thickness shall be used in future simulations to determine the usability in reflectarray
+    cells design.
     \clearpage
     \bibliographystyle{IEEEtran}
     \bibliography{bibliography}
