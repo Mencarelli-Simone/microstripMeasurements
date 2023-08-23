@@ -49,7 +49,7 @@
     \label{sec:introduction}
     \begin{figure}[!h]
         \includegraphics[width=\textwidth]{fixture}
-        \caption{Smaller 40~mm line test fixture. Front: 5~mm~x~40~mm adhesive copper trace on glass fiber slab.
+        \caption{Shortest (40~mm) line test fixture. Front: 5~mm~x~40~mm adhesive copper trace on glass fiber panel.
         Back: thru-hole SMA connector with m2.5 screws and bolts.}
         \label{fig:photo}
     \end{figure}
@@ -61,7 +61,7 @@
     Two thru-hole connectors are bolted to the structure with the central pin trimmed to length and soldered to the copper line.
     From here on, the fixtures are referred to by their line length; respectively: long~=~219~mm (L), medimum~=~146~mm (M), and
     short~=~40mm (S).\\
-    The complex propagation coefficient $\gamma$ extraction procedure is defined in~\ref{doc:microstrip-characterization} and
+    The complex propagation coefficient $\gamma$ extraction procedure is defined in \ref{doc:microstrip-characterization} and
     applied here with minor modifications.
     An overview of the methodology and the results of this de-embedding procedure are reported in~\sref{sec:de-embedding}.\\
     The error sensitivity to small differences in the average permittivity of the fixtures is derived in~\sref{sec:error}
@@ -97,8 +97,9 @@
         \varepsilon_{eff} = \left(\dfrac{ c [\text{unwrap}(\angle{t}) + n2\pi]} {2\pi f L}\right)^2,
         \label{eq:epsilon}
     \end{equation}
-    where $c$ is the speed of light, $L$ is the line length, $f$ is the frequency and $n$ an integer to correctly reconstruct
-    the true--time phase delay (usually n=0 if the first sample of $f$ is small enough).\\
+    where $c$ is the speed of light, $L$ is the line length (length difference between the two fixtures),
+    $f$ is the frequency and $n$ an integer to correctly reconstruct the true--time phase delay
+    (usually n=0 if the first sample of $f$ is small enough).\\
     The loss tangent is defined as
     \begin{equation}
         \tan \delta_{eff} = -\dfrac{\ln(|t|) c}{L \pi f \sqrt{\varepsilon_{eff}}}.
@@ -136,7 +137,7 @@
     transmission lines, e.g., \laser{LS} is the \emph{anti-causal} (negative length) line obtained de--embedding the line S from the transitions
     T-matrices obtained from the response of L, and vice versa \laser{SL} is the \emph{causal} line of identical positive length.
 
-    \subsection{Simulated data reference}
+    \subsection{Simulated data baseline}
     \label{subsec:simulation}
     \begin{figure}[!t]
         \includegraphics[width=\textwidth]{sparasim}
@@ -219,7 +220,7 @@
         \label{eq:saverage}
     \end{equation}
     and
-       \begin{equation}
+    \begin{equation}
         S21 = \dfrac{1}{4}(S21_a + S21_b + S12_a + S12_b),
         \label{eq:taverage}
     \end{equation}
@@ -239,12 +240,10 @@
     Recall, in fact, that the tangent delta is computed from the square root of the dielectric constant~\eqref{eq:tand}
     and therefore the error will be propagated from one to another.
 
+
     \section{Non-identical fixtures de-embedding error}
     \label{sec:error}
-
-    \subsection{Measurement results}
-    \label{subsec:measure-error}
-    \begin{figure}[!tb]
+    \begin{figure}[!b]
         \includegraphics[width=\textwidth]{error}
         \caption{Two--fixtures schematic for the de-embedding procedure. The transitions are identical and the lines are
         of different lengths to produce a $\Delta_L$--long virtual line response. The error arises from the difference
@@ -254,14 +253,80 @@
     In the ideal case, the two test fixtures are supposed to have identical propagation constants.
     In practice, as depicted in~\fig{fig:error}, the two lines might have slightly different properties, yielding
     to an error in the estimation of the electrical length of the virtual line $\Delta_L$ in the drawing.\\
-    Assuming that the only difference is in the phase velocity of the two lines, the de-embeddi
+    Assuming that the only difference is in the phase velocity of the two lines (and any impedance mismatch between the
+    two lines is negligible), the de-embedding procedures will still be removing the effect of transitions, but also a
+    length of transmission line proportional to $\sqrt{\varepsilon_a }L_a$ (the shortest of the two).
+    The resulting electrical length $\Delta_L$, however, will not be the physical length difference of the two lines
+    but something proportional to the phase delays difference $\propto (\sqrt{\varepsilon_b} L_b - \sqrt{\varepsilon_a} L_a$).
+    This setup leads to the following estimation for the dielectric constant~\eqref{eq:epsilon} (e.g.,~\fig{fig:epsilonmeas})
+    \begin{equation}
+        \sqrt{\varepsilon} = \dfrac{L_b \sqrt{\varepsilon_b} - L_a \sqrt{\varepsilon_a}}{L_b - L_a}
+        \label{eq:epsidiff}
+    \end{equation}
+    which would not depend on $L_b$ and $L_a$ if $\varepsilon_a = \varepsilon_b$.\\
+    Assuming we are interested in finding $\varepsilon_b$, and there is a permittivity error $\Delta\varepsilon$ between
+    the two fixtures such as $\varepsilon_a = \varepsilon_b+\Delta\varepsilon$, the de-embedding result $\varepsilon$
+    will deviate from the desired $\varepsilon_b$ of a quantity
+    \begin{equation}
+        \varepsilon_{err} = \varepsilon_b -
+        \left(\dfrac{L_b \sqrt{\varepsilon_b} - L_a \sqrt{\varepsilon_b+\Delta\varepsilon}}{L_b - L_a}\right)^2.
+        \label{eq:epsierror}
+    \end{equation}
+    The error in~\eqref{eq:epsierror}, will be null in the case $\Delta\varepsilon = 0$, in the general case we can
+    study its sensitivity to $\Delta\varepsilon$ variations
+    \begin{equation}
+        \dfrac{\partial \varepsilon_{err}}{\partial \Delta\varepsilon} =
+        - \dfrac{L_a^2}{(L_b - L_a)^2} +
+        \dfrac{L_b L_a}{(L_b - L_a)^2} \dfrac{\varepsilon_b}{\sqrt{\varepsilon_b(\varepsilon_b + \Delta\varepsilon)}},
+        \label{eq:errderivative}
+    \end{equation}
+    which can be further simplified in the case of $\Delta\varepsilon \rightarrow 0$ (small perturbations)
+    \begin{equation}
+        \left.\dfrac{\partial \varepsilon_{err}}{\partial \Delta\varepsilon}\right|_{\Delta\varepsilon = 0}=
+        - \dfrac{L_a^2}{(L_b - L_a)^2} +
+        \dfrac{L_b L_a}{(L_b - L_a)^2},
+        \label{eq:smallerr}
+    \end{equation}
+    exclusively dependent on the line lengths. \\
+    The result in~\eqref{eq:smallerr} tells us that a small error in the phase velocity of two fixtures, will be
+    amplified by the de-embedding algorithm, if $L_b - L_a$ is too small.
+    Furthermore, since~\eqref{eq:epsierror}\eqref{eq:errderivative}\eqref{eq:smallerr} all assume $L_b > L_a$,the error
+    from~\eqref{eq:smallerr} will always be positive for small $\Delta\varepsilon$, meaning that $\varepsilon$~\eqref{eq:epsidiff}
+    will allways be smaller than the measurand $\varepsilon_b$.
 
-
+    \subsection{Measurement results}
+    \label{subsec:measure-error}
+    \begin{table}[!ht]
+        \centering
+        \begin{tabular}{|l|l|l|l|l}
+            \cline{1-4}
+            $L_b$ {[}mm{]} & $L_a$ {[}mm{]} & $\Delta_L$ {[}mm{]} & $\dfrac{\partial \varepsilon_{err}}{\partial \Delta\varepsilon}$  \rule[-4mm]{0mm}{11mm}&  \\ \cline{1-4}
+            219            & 40             & 179                 & 0.22                                                             & \\ \cline{1-4}
+            219            & 146            & 73                  & 2.0                                                              & \\ \cline{1-4}
+            146            & 40             & 106                 & 0.37                                                             & \\ \cline{1-4}
+        \end{tabular}
+        \caption{Measurement sensitivity to permittivity variations.}
+        \label{tab:errorsensitivity}
+    \end{table}
+    Tabulating~\eqref{eq:smallerr} for the 3 test fixture combinations we obtain~\ref{tab:errorsensitivity}.
+    These values explain the difference in the results in~\fig{fig:epsilonmeas} (and consequently~\fig{fig:tandmeas}).
+    Also we can say that the measurements \laser{LS--SL} are the ones that best approximate the characteristics of the
+    longest line \laser{L} (due to the smaller error sensitivity), while the measurements \laser{LM--ML} are the worst
+    in this case.\\
+    By extension, assuming that \laser{LS--SL} and \laser{MS--SM} are good approximations for the properties of
+    \laser{L} and \laser{M} respectively, we still find a difference of $\approx$~0.265 in the effective dielectric
+    permittivity indicating a substantial difference between test fixtures.\\
+    The dielectric thickness differences measured during the assembly process might be part of the reason for this error.
+    However, varying the thickness of the material in a CST model, doesn't produce a change in $\varepsilon_{eff}$
+    large enough to justify the error.
+    Therefore the reason must lie in some non-homogeneity of the material due to manufacturing errors.
+    In this sense, the measurement \laser{LS--SL} should represent a better \emph{average} of non-idealities effects;
+    and will be used to match a numerical model to the measurement.
     \section{Numerical model matching}
     \label{sec:numerical-model-matching}
 
-    \subsection{Sensitivity considerations}
-    \label{subsec:sensitivity}
+%    \subsection{Sensitivity considerations}
+%    \label{subsec:sensitivity}
 
 
     \section{Conclusions}
