@@ -301,9 +301,9 @@
         \begin{tabular}{|l|l|l|l|l}
             \cline{1-4}
             $L_b$ {[}mm{]} & $L_a$ {[}mm{]} & $\Delta_L$ {[}mm{]} & $\dfrac{\partial \varepsilon_{err}}{\partial \Delta\varepsilon}$  \rule[-4mm]{0mm}{11mm}&  \\ \cline{1-4}
-            219            & 40             & 179                 & 0.22                                                             & \\ \cline{1-4}
-            219            & 146            & 73                  & 2.0                                                              & \\ \cline{1-4}
-            146            & 40             & 106                 & 0.37                                                             & \\ \cline{1-4}
+            219            & 40             & 179                 & 0.22                                                                                   & \\ \cline{1-4}
+            219            & 146            & 73                  & 2.0                                                                                    & \\ \cline{1-4}
+            146            & 40             & 106                 & 0.37                                                                                   & \\ \cline{1-4}
         \end{tabular}
         \caption{Measurement sensitivity to permittivity variations.}
         \label{tab:errorsensitivity}
@@ -322,11 +322,29 @@
     Therefore the reason must lie in some non-homogeneity of the material due to manufacturing errors.
     In this sense, the measurement \laser{LS--SL} should represent a better \emph{average} of non-idealities effects;
     and will be used to match a numerical model to the measurement.
+
+
     \section{Numerical model matching}
     \label{sec:numerical-model-matching}
+    \begin{figure}[!b]
+        \includegraphics[width=\textwidth]{fitter}
+        \caption{CST model for the microstrip, the layers from top to bottom are: copper 0.3~mm, acrylic 0.3~mm
+            (adhesive), MUT 0.55~mm, aluminium 1.2~mm.}
+        \label{fig:fitter}
+    \end{figure}
+    The $LS$ measure was fitted to the model in~\fig{fig:fitter} using the difference of $\gamma$~\eqref{eq:gamma}
+    as a frequency-dependent error function.
+    This error curve is integrated over a specified portion of the bandwidth to produce an error value that can be used
+    in a optimizer.\\
+    The optimization is performed with a python script that controls the execution of CST and updates the values of the
+    dielectric constant and loss tangent of the MUT between iterations.\\
+    The \laser{minimize} function of the library \laser{scipy} is used for the optimization.
+    Different methods can be utilized, the quasi-Newton \emph{BCGF} and the \emph{Nelder-Mead} methods where both found
+    effective (the latter is best if the initial solution is far from convergence).
 
-%    \subsection{Sensitivity considerations}
-%    \label{subsec:sensitivity}
+
+    %    \subsection{Sensitivity considerations}
+    %    \label{subsec:sensitivity}
 
 
     \section{Conclusions}
